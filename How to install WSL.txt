@@ -1,0 +1,7 @@
+How to install WSL 
+1)In windows, search for 'turn Windows features on or off'
+2)Search for 'Virtual Machine Platform' and 'Windows Subsystem for Linux'
+3)Enable both of them and restart the PC
+4)Go to the CMD, and type 'wsl --status' if it is not installed then follow the next step
+5)The command will prompt on your screen 'wsl.exe -- install' write this and hit enter.
+6)Restart the PC
