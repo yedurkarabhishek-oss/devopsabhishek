@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  posts-service:
+    build: ./services/posts-service
+    container_name: posts-service
+    ports:
+      - "5001:5000"
+    env_file:
+      - ./services/posts-service/.env
+    restart: unless-stopped
+
+  auth-service:
+    build: ./services/auth-service
+    container_name: auth-service
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./services/auth-service/.env
+    restart: unless-stopped

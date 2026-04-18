@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write a Post — Runners Blog</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">🏃</div>
+      <span class="logo-text">RUNNERS<span>BLOG</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+    <div class="navbar-actions">
+      <div id="guestActions" class="d-flex gap-2 align-center">
+        <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Join Free</a>
+      </div>
+      <div id="userActions" class="d-flex gap-2 align-center hidden">
+        <a href="create-post.html" id="writeBtnNav" class="btn btn-primary btn-sm">✏️ Write</a>
+        <div class="nav-user-menu">
+          <div class="nav-avatar" id="navAvatar"><span id="userAvatarText">U</span></div>
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">👤 My Profile</a>
+            <a href="dashboard.html?tab=posts" class="dropdown-item">📝 My Posts</a>
+            <a href="create-post.html" class="dropdown-item">✏️ Write Post</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item danger" id="logoutBtn">🚪 Log Out</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- CREATE POST PAGE -->
+<div class="create-post-page">
+  <!-- Top bar -->
+  <div class="create-post-header">
+    <div class="container d-flex justify-between align-center">
+      <div>
+        <h2 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.03em;" id="pageTitle">WRITE A NEW POST</h2>
+        <p style="color:var(--text-light);font-size:0.85rem;">Share your running story with the community</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-ghost" onclick="saveDraft()">💾 Save Draft</button>
+        <button class="btn btn-primary" onclick="publishPost()">🚀 Publish Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form body -->
+  <div class="create-post-body">
+
+    <!-- Title -->
+    <div class="form-group">
+      <input type="text" class="form-control" id="postTitle"
+        placeholder="Your post title..."
+        style="font-size:1.5rem;font-weight:700;padding:16px 20px;border-radius:var(--radius-lg);">
+      <div class="form-error hidden" id="titleError"></div>
+    </div>
+
+    <!-- Meta row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:20px;">
+      <div>
+        <label class="form-label">Category</label>
+        <select class="form-control form-select" id="postCategory">
+          <option value="general">General</option>
+          <option value="training">Training</option>
+          <option value="race-report">Race Report</option>
+          <option value="nutrition">Nutrition</option>
+          <option value="gear">Gear Review</option>
+          <option value="injury">Injury & Recovery</option>
+          <option value="motivation">Motivation</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Distance (km)</label>
+        <input type="number" class="form-control" id="postDistance" placeholder="e.g. 42.2" step="0.1" min="0">
+      </div>
+      <div>
+        <label class="form-label">Duration (minutes)</label>
+        <input type="number" class="form-control" id="postDuration" placeholder="e.g. 263" min="0">
+      </div>
+      <div>
+        <label class="form-label">Tags (comma separated)</label>
+        <input type="text" class="form-control" id="postTags" placeholder="marathon, training, tips">
+      </div>
+    </div>
+
+    <!-- Excerpt -->
+    <div class="form-group">
+      <label class="form-label">Excerpt / Summary</label>
+      <textarea class="form-control" id="postExcerpt" rows="2"
+        placeholder="A short summary shown in the blog listing (leave blank to auto-generate)..."
+        style="resize:vertical;"></textarea>
+    </div>
+
+    <!-- Content editor -->
+    <div class="form-group">
+      <label class="form-label">Post Content</label>
+
+      <!-- Toolbar -->
+      <div class="editor-toolbar">
+        <button type="button" class="toolbar-btn" onclick="format('bold')"><strong>B</strong></button>
+        <button type="button" class="toolbar-btn" onclick="format('italic')"><em>I</em></button>
+        <button type="button" class="toolbar-btn" onclick="format('underline')"><u>U</u></button>
+        <div style="width:1px;background:var(--border);margin:0 6px;"></div>
+        <button type="button" class="toolbar-btn" onclick="insertHeading()">H2</button>
+        <button type="button" class="toolbar-btn" onclick="insertHeading('h3')">H3</button>
+        <div style="width:1px;background:var(--border);margin:0 6px;"></div>
+        <button type="button" class="toolbar-btn" onclick="format('insertUnorderedList')">• List</button>
+        <button type="button" class="toolbar-btn" onclick="format('insertOrderedList')">1. List</button>
+        <div style="width:1px;background:var(--border);margin:0 6px;"></div>
+        <button type="button" class="toolbar-btn" onclick="insertBlockquote()">❝ Quote</button>
+        <button type="button" class="toolbar-btn" onclick="insertLink()">🔗 Link</button>
+        <div style="margin-left:auto;font-size:0.75rem;color:var(--text-light);display:flex;align-items:center;gap:8px;">
+          <button type="button" class="toolbar-btn" onclick="switchToRaw()" id="rawBtn">HTML</button>
+          <span id="wordCount" style="white-space:nowrap;">0 words</span>
+        </div>
+      </div>
+
+      <!-- Rich text editor -->
+      <div id="richEditor" contenteditable="true" class="content-editor"
+        style="min-height:500px;"
+        data-placeholder="Start writing your running story here..."></div>
+
+      <!-- Raw HTML textarea (hidden by default) -->
+      <textarea id="rawEditor" class="content-editor hidden"
+        placeholder="<p>Start writing HTML here...</p>"
+        style="min-height:500px;font-family:var(--font-mono);font-size:0.875rem;"></textarea>
+
+      <div class="form-error hidden" id="contentError"></div>
+    </div>
+
+    <!-- Preview -->
+    <div style="background:white;border:2px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:24px;">
+      <h4 style="font-weight:700;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:16px;">📋 Post Preview Card</h4>
+      <div id="previewCard" style="max-width:340px;">
+        <div style="background:var(--gray-bg);border-radius:var(--radius-lg);padding:20px;border:1px solid var(--border);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:0.8rem;color:var(--text-light);">
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:0.65rem;display:flex;align-items:center;justify-content:center;font-weight:700;" id="previewAvatar">U</div>
+            <span id="previewAuthor">You</span>
+            <span>· Today</span>
+          </div>
+          <h3 id="previewTitle" style="font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--text-dark);">Your post title will appear here</h3>
+          <p id="previewExcerpt" style="font-size:0.8rem;color:var(--text-light);line-height:1.5;">Your excerpt or the beginning of your content will appear here...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action buttons (bottom) -->
+    <div class="d-flex gap-3 justify-between" style="padding:24px 0;border-top:2px solid var(--border);">
+      <a href="blog.html" class="btn btn-ghost">← Cancel</a>
+      <div class="d-flex gap-2">
+        <button class="btn btn-ghost" onclick="saveDraft()">💾 Save as Draft</button>
+        <button class="btn btn-primary btn-lg" onclick="publishPost()">🚀 Publish Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+[contenteditable]:empty:before {
+  content: attr(data-placeholder);
+  color: var(--text-light);
+  pointer-events: none;
+}
+</style>
+
+<script src="js/api.js"></script>
+<script>
+let isRawMode = false;
+let editingPostId = null;
+
+// Require auth
+document.addEventListener('DOMContentLoaded', async () => {
+  await auth.init();
+  if (!auth.currentUser) {
+    showToast('Please log in to write a post', 'error');
+    setTimeout(() => window.location.href = 'login.html?redirect=create-post.html', 1200);
+    return;
+  }
+
+  // Update preview author
+  document.getElementById('previewAuthor').textContent = auth.currentUser.full_name || auth.currentUser.username;
+  document.getElementById('previewAvatar').textContent = (auth.currentUser.full_name || auth.currentUser.username || 'U')[0].toUpperCase();
+
+  // Check if editing existing post
+  const urlParams = new URLSearchParams(window.location.search);
+  const editId = urlParams.get('edit');
+  if (editId) {
+    loadPostForEdit(editId);
+  }
+});
+
+// Word count
+document.getElementById('richEditor').addEventListener('input', updateWordCount);
+
+function updateWordCount() {
+  const text = document.getElementById('richEditor').innerText || '';
+  const count = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById('wordCount').textContent = count + ' words';
+
+  // Update preview
+  const titleEl = document.getElementById('postTitle');
+  const excerptEl = document.getElementById('postExcerpt');
+  document.getElementById('previewTitle').textContent = titleEl.value || 'Your post title will appear here';
+  document.getElementById('previewExcerpt').textContent = excerptEl.value || (text.substring(0, 120) + '...') || 'Your excerpt...';
+}
+
+document.getElementById('postTitle').addEventListener('input', updateWordCount);
+document.getElementById('postExcerpt').addEventListener('input', updateWordCount);
+
+// Formatting
+function format(command) {
+  document.getElementById('richEditor').focus();
+  document.execCommand(command, false, null);
+}
+
+function insertHeading(tag = 'h2') {
+  const editor = document.getElementById('richEditor');
+  editor.focus();
+  const sel = window.getSelection();
+  if (sel.rangeCount) {
+    const range = sel.getRangeAt(0);
+    const heading = document.createElement(tag);
+    heading.textContent = sel.toString() || 'Heading';
+    range.deleteContents();
+    range.insertNode(heading);
+    range.setStartAfter(heading);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+}
+
+function insertBlockquote() {
+  const editor = document.getElementById('richEditor');
+  editor.focus();
+  document.execCommand('formatBlock', false, 'blockquote');
+}
+
+function insertLink() {
+  const url = prompt('Enter URL:');
+  if (url) {
+    document.getElementById('richEditor').focus();
+    document.execCommand('createLink', false, url);
+  }
+}
+
+function switchToRaw() {
+  const rich = document.getElementById('richEditor');
+  const raw = document.getElementById('rawEditor');
+  const btn = document.getElementById('rawBtn');
+
+  if (!isRawMode) {
+    raw.value = rich.innerHTML;
+    rich.classList.add('hidden');
+    raw.classList.remove('hidden');
+    btn.textContent = 'Rich';
+    isRawMode = true;
+  } else {
+    rich.innerHTML = raw.value;
+    raw.classList.add('hidden');
+    rich.classList.remove('hidden');
+    btn.textContent = 'HTML';
+    isRawMode = false;
+  }
+}
+
+function getContent() {
+  if (isRawMode) {
+    return document.getElementById('rawEditor').value;
+  }
+  return document.getElementById('richEditor').innerHTML;
+}
+
+function validateForm() {
+  const title = document.getElementById('postTitle').value.trim();
+  const content = getContent().replace(/<[^>]*>/g, '').trim();
+  let valid = true;
+
+  if (!title) {
+    document.getElementById('titleError').textContent = 'Title is required';
+    document.getElementById('titleError').classList.remove('hidden');
+    valid = false;
+  } else {
+    document.getElementById('titleError').classList.add('hidden');
+  }
+
+  if (!content || content.length < 20) {
+    document.getElementById('contentError').textContent = 'Content must be at least 20 characters';
+    document.getElementById('contentError').classList.remove('hidden');
+    valid = false;
+  } else {
+    document.getElementById('contentError').classList.add('hidden');
+  }
+
+  return valid;
+}
+
+function getPostData(status = 'published') {
+  const tags = document.getElementById('postTags').value
+    .split(',').map(t => t.trim()).filter(Boolean);
+
+  return {
+    title: document.getElementById('postTitle').value.trim(),
+    content: getContent(),
+    excerpt: document.getElementById('postExcerpt').value.trim(),
+    category: document.getElementById('postCategory').value,
+    tags,
+    distance_km: parseFloat(document.getElementById('postDistance').value) || null,
+    duration_minutes: parseInt(document.getElementById('postDuration').value) || null,
+    status
+  };
+}
+
+async function publishPost() {
+  if (!validateForm()) return;
+
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = 'Publishing...';
+
+  const data = getPostData('published');
+  let result;
+
+  if (editingPostId) {
+    result = await api.put(`/posts/${editingPostId}`, data, true);
+  } else {
+    result = await api.post('/posts', data, true);
+  }
+
+  if (result.ok) {
+    showToast('Post published successfully! 🎉', 'success');
+    setTimeout(() => {
+      window.location.href = `post.html?slug=${result.data.data.slug}`;
+    }, 800);
+  } else {
+    showToast(result.data.message || 'Failed to publish post', 'error');
+    btn.disabled = false;
+    btn.textContent = '🚀 Publish Post';
+  }
+}
+
+async function saveDraft() {
+  if (!document.getElementById('postTitle').value.trim()) {
+    showToast('Please add a title before saving', 'error');
+    return;
+  }
+
+  const data = getPostData('draft');
+  const result = editingPostId
+    ? await api.put(`/posts/${editingPostId}`, data, true)
+    : await api.post('/posts', data, true);
+
+  if (result.ok) {
+    editingPostId = result.data.data.id;
+    showToast('Draft saved!', 'success');
+  } else {
+    showToast('Failed to save draft', 'error');
+  }
+}
+
+async function loadPostForEdit(postId) {
+  // Load post data by fetching user's posts
+  const result = await api.get(`/posts/me/my-posts`, true);
+  if (result.ok) {
+    const post = result.data.data.find(p => p.id == postId);
+    if (post) {
+      editingPostId = post.id;
+      document.getElementById('pageTitle').textContent = 'EDIT POST';
+      document.getElementById('postTitle').value = post.title;
+      document.getElementById('postCategory').value = post.category;
+      document.getElementById('postExcerpt').value = post.excerpt || '';
+      document.getElementById('postTags').value = (post.tags || []).join(', ');
+      document.getElementById('postDistance').value = post.distance_km || '';
+      document.getElementById('postDuration').value = post.duration_minutes || '';
+      document.getElementById('richEditor').innerHTML = post.content;
+      updateWordCount();
+    }
+  }
+}
+</script>
+</body>
+</html>

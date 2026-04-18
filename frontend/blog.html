@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Runners Blog</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">🏃</div>
+      <span class="logo-text">RUNNERS<span>BLOG</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+    <div class="navbar-actions">
+      <div id="guestActions" class="d-flex gap-2 align-center">
+        <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Join Free</a>
+      </div>
+      <div id="userActions" class="d-flex gap-2 align-center hidden">
+        <a href="create-post.html" id="writeBtnNav" class="btn btn-primary btn-sm">✏️ Write</a>
+        <div class="nav-user-menu">
+          <div class="nav-avatar" id="navAvatar"><span id="userAvatarText">U</span></div>
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">👤 My Profile</a>
+            <a href="dashboard.html?tab=posts" class="dropdown-item">📝 My Posts</a>
+            <a href="create-post.html" class="dropdown-item">✏️ Write Post</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item danger" id="logoutBtn">🚪 Log Out</div>
+          </div>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button id="mobileNavClose" style="color:white;font-size:1.5rem;position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;">✕</button>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="blog.html" class="mobile-nav-link">Blog</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div style="background:var(--dark);padding:100px 0 48px;position:relative;overflow:hidden;" id="blogHero">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(232,50,10,0.1) 0%,transparent 60%);"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="section-eyebrow">📚 The Blog</span>
+    <h1 style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);color:white;letter-spacing:0.03em;margin-bottom:12px;">RUNNER STORIES</h1>
+    <p style="color:rgba(255,255,255,0.6);font-size:1.05rem;max-width:520px;">Real stories from real runners — training logs, race reports, gear reviews and everything in between.</p>
+    
+    <!-- Search bar -->
+    <div style="margin-top:32px;">
+      <div class="search-bar" style="max-width:480px;">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search posts..." style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:white;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG CONTENT -->
+<section class="section" style="background:var(--gray-bg);">
+  <div class="container">
+
+    <!-- Filters row -->
+    <div class="d-flex justify-between align-center flex-wrap gap-3 mb-4">
+      <!-- Category tabs -->
+      <div class="category-tabs" id="categoryTabs">
+        <button class="cat-tab active" data-cat="all">All</button>
+        <button class="cat-tab" data-cat="training">🏃 Training</button>
+        <button class="cat-tab" data-cat="race-report">🏅 Race Reports</button>
+        <button class="cat-tab" data-cat="nutrition">🥗 Nutrition</button>
+        <button class="cat-tab" data-cat="gear">👟 Gear</button>
+        <button class="cat-tab" data-cat="injury">🩹 Injury</button>
+        <button class="cat-tab" data-cat="motivation">💪 Motivation</button>
+      </div>
+
+      <!-- Sort -->
+      <select class="form-control form-select" id="sortSelect" style="width:180px;padding:8px 40px 8px 16px;border-radius:100px;">
+        <option value="latest">Latest First</option>
+        <option value="popular">Most Liked</option>
+        <option value="views">Most Viewed</option>
+      </select>
+    </div>
+
+    <!-- Results info -->
+    <div id="resultsInfo" style="font-size:0.875rem;color:var(--text-light);margin-bottom:24px;"></div>
+
+    <!-- Posts grid -->
+    <div id="postsGrid" class="posts-grid">
+      <div class="loader" style="grid-column:1/-1;"><div class="spinner"></div></div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-logo">
+          <div class="logo-icon" style="width:36px;height:36px;font-size:1.2rem;">🏃</div>
+          <span class="logo-text" style="font-size:1.4rem;">RUNNERS<span>BLOG</span></span>
+        </a>
+        <p style="margin-top:12px;font-size:0.875rem;color:rgba(255,255,255,0.5);">A community for runners of all levels.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">EXPLORE</h4>
+        <div class="footer-links">
+          <a href="blog.html?category=training" class="footer-link">Training</a>
+          <a href="blog.html?category=race-report" class="footer-link">Race Reports</a>
+          <a href="blog.html?category=nutrition" class="footer-link">Nutrition</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">JOIN US</h4>
+        <div class="footer-links">
+          <a href="register.html" class="footer-link">Register</a>
+          <a href="login.html" class="footer-link">Login</a>
+          <a href="create-post.html" class="footer-link">Write a Post</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">SITE</h4>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="about.html" class="footer-link">About</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 RunnersBlog. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+let currentPage = 1;
+let currentCategory = 'all';
+let currentSort = 'latest';
+let searchQuery = '';
+let searchTimer = null;
+
+// Read URL params
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('category')) {
+  currentCategory = urlParams.get('category');
+}
+
+async function loadPosts() {
+  const grid = document.getElementById('postsGrid');
+  grid.innerHTML = '<div class="loader" style="grid-column:1/-1;"><div class="spinner"></div></div>';
+
+  let url = `/posts?page=${currentPage}&limit=9&sort=${currentSort}`;
+  if (currentCategory !== 'all') url += `&category=${currentCategory}`;
+  if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
+
+  const result = await api.get(url);
+
+  if (result.ok) {
+    const { data, pagination } = result.data;
+
+    document.getElementById('resultsInfo').textContent =
+      `Showing ${data.length} of ${pagination.total} posts`;
+
+    if (data.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;">
+          <span class="empty-icon">🔍</span>
+          <h3 class="empty-title">No posts found</h3>
+          <p class="empty-text">Try a different search or category</p>
+          <button class="btn btn-outline" onclick="resetFilters()">Clear Filters</button>
+        </div>`;
+    } else {
+      grid.innerHTML = data.map(buildPostCard).join('');
+      setTimeout(initScrollReveal, 100);
+    }
+
+    renderPagination(pagination);
+  } else {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><span class="empty-icon">⚠️</span><p class="empty-text">Failed to load posts. Is the server running?</p></div>`;
+  }
+}
+
+function renderPagination(pagination) {
+  const container = document.getElementById('pagination');
+  if (pagination.pages <= 1) { container.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>`;
+  for (let i = 1; i <= pagination.pages; i++) {
+    if (i === 1 || i === pagination.pages || Math.abs(i - currentPage) <= 1) {
+      html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (Math.abs(i - currentPage) === 2) {
+      html += `<span style="padding:0 8px;color:var(--text-light);">…</span>`;
+    }
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pagination.pages?'disabled':''}>→</button>`;
+  container.innerHTML = html;
+}
+
+function goPage(page) {
+  currentPage = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  loadPosts();
+}
+
+function resetFilters() {
+  currentCategory = 'all';
+  currentSort = 'latest';
+  searchQuery = '';
+  currentPage = 1;
+  document.getElementById('searchInput').value = '';
+  document.getElementById('sortSelect').value = 'latest';
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('[data-cat="all"]').classList.add('active');
+  loadPosts();
+}
+
+// Set active category from URL
+document.addEventListener('DOMContentLoaded', () => {
+  if (currentCategory !== 'all') {
+    document.querySelectorAll('.cat-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.cat === currentCategory);
+    });
+  }
+
+  // Category tabs
+  document.getElementById('categoryTabs').addEventListener('click', (e) => {
+    if (!e.target.matches('.cat-tab')) return;
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    currentCategory = e.target.dataset.cat;
+    currentPage = 1;
+    loadPosts();
+  });
+
+  // Sort
+  document.getElementById('sortSelect').addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    currentPage = 1;
+    loadPosts();
+  });
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchQuery = e.target.value;
+      currentPage = 1;
+      loadPosts();
+    }, 400);
+  });
+
+  loadPosts();
+});
+</script>
+</body>
+</html>

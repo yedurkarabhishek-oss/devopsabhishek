@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Runners Blog — Run Your Story</title>
+  <meta name="description" content="A community for passionate runners. Share your training, race reports, nutrition tips, and running stories.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏃</text></svg>">
+</head>
+<body>
+
+<!-- ============================================
+     NAVBAR
+     ============================================ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">🏃</div>
+      <span class="logo-text">RUNNERS<span>BLOG</span></span>
+    </a>
+
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+
+    <div class="navbar-actions">
+      <!-- Guest actions -->
+      <div id="guestActions" class="d-flex gap-2 align-center">
+        <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Join Free</a>
+      </div>
+
+      <!-- User actions -->
+      <div id="userActions" class="d-flex gap-2 align-center hidden">
+        <a href="create-post.html" id="writeBtnNav" class="btn btn-primary btn-sm">✏️ Write</a>
+        <div class="nav-user-menu">
+          <div class="nav-avatar" id="navAvatar">
+            <span id="userAvatarText">U</span>
+          </div>
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">👤 My Profile</a>
+            <a href="dashboard.html?tab=posts" class="dropdown-item">📝 My Posts</a>
+            <a href="create-post.html" class="dropdown-item">✏️ Write Post</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item danger" id="logoutBtn">🚪 Log Out</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="btn btn-ghost" id="mobileNavClose" style="color:white;font-size:1.5rem;position:absolute;top:20px;right:20px;">✕</button>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="blog.html" class="mobile-nav-link">Blog</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+  <a href="login.html" class="mobile-nav-link" style="margin-top:24px;">Log In</a>
+  <a href="register.html" class="mobile-nav-link" style="color:var(--primary);">Join Free →</a>
+</div>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-pattern"></div>
+
+  <div class="hero-content">
+    <!-- Left: Copy -->
+    <div>
+      <div class="hero-eyebrow">🏃 Community for Runners</div>
+      <h1 class="hero-title">
+        Share Your
+        <em>Running</em>
+        Story
+      </h1>
+      <p class="hero-subtitle">
+        From your first 5K to your hundredth marathon — this is the place to document, share, and inspire. Join thousands of runners telling their stories every day.
+      </p>
+      <div class="hero-cta">
+        <a href="register.html" class="btn btn-primary btn-lg">Start Writing Free</a>
+        <a href="blog.html" class="btn btn-ghost btn-lg" style="color:white;border-color:rgba(255,255,255,0.3);">Read Posts</a>
+      </div>
+      <div class="hero-stats" id="heroStats">
+        <div>
+          <span class="hero-stat-num" id="statPosts">—</span>
+          <span class="hero-stat-label">Posts</span>
+        </div>
+        <div>
+          <span class="hero-stat-num" id="statRunners">—</span>
+          <span class="hero-stat-label">Runners</span>
+        </div>
+        <div>
+          <span class="hero-stat-num" id="statViews">—</span>
+          <span class="hero-stat-label">Reads</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Preview cards -->
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-avatar">🏃</div>
+          <div class="hero-card-meta">
+            <div class="hero-card-name">Sarah J.</div>
+            <div class="hero-card-time">2 hours ago</div>
+          </div>
+        </div>
+        <div class="hero-card-title">Just finished my first ultra! 50km done in 6:42. Legs are dead but my heart is full 💪</div>
+        <span class="hero-card-badge cat-race-report">Race Report</span>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-avatar">👟</div>
+          <div class="hero-card-meta">
+            <div class="hero-card-name">Mike T.</div>
+            <div class="hero-card-time">5 hours ago</div>
+          </div>
+        </div>
+        <div class="hero-card-title">My honest review of the Nike Vaporfly 3 after 300km — is it worth the price?</div>
+        <span class="hero-card-badge cat-gear">Gear Review</span>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-avatar">🥗</div>
+          <div class="hero-card-meta">
+            <div class="hero-card-name">Priya K.</div>
+            <div class="hero-card-time">Yesterday</div>
+          </div>
+        </div>
+        <div class="hero-card-title">What I eat in a week as a marathon runner — fueling 80km of training</div>
+        <span class="hero-card-badge cat-nutrition">Nutrition</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     STATS BAR
+     ============================================ -->
+<div class="stats-section" id="statsSection">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <span class="stat-block-num" id="sb1">—</span>
+        <span class="stat-block-label">Published Posts</span>
+      </div>
+      <div>
+        <span class="stat-block-num" id="sb2">—</span>
+        <span class="stat-block-label">Active Runners</span>
+      </div>
+      <div>
+        <span class="stat-block-num" id="sb3">—</span>
+        <span class="stat-block-label">Total Views</span>
+      </div>
+      <div>
+        <span class="stat-block-num" id="sb4">—</span>
+        <span class="stat-block-label">Comments</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     FEATURED POSTS
+     ============================================ -->
+<section class="section" style="background: var(--gray-bg);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">🔥 Trending</span>
+      <h2 class="section-title">Most Read Stories</h2>
+      <p class="section-subtitle">The posts our running community is loving right now</p>
+    </div>
+
+    <div id="featuredPosts" class="posts-grid cols-3">
+      <!-- Loaded by JS -->
+      <div class="loader"><div class="spinner"></div></div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="blog.html" class="btn btn-outline">View All Posts →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CATEGORIES SECTION
+     ============================================ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-eyebrow">Browse by Topic</span>
+      <h2 class="section-title">Find Your Focus</h2>
+    </div>
+
+    <div class="d-flex flex-wrap gap-3 justify-between" style="margin-top:0;">
+      <a href="blog.html?category=training" class="cat-card reveal">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🏃</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Training</h3>
+        <p style="font-size:0.8rem;color:var(--text-light);">Plans, workouts & tips</p>
+      </a>
+      <a href="blog.html?category=race-report" class="cat-card reveal reveal-delay-1">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🏅</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Race Reports</h3>
+        <p style="font-size:0.8rem;color:var(--text-light);">5K to ultra marathon</p>
+      </a>
+      <a href="blog.html?category=nutrition" class="cat-card reveal reveal-delay-2">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🥗</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Nutrition</h3>
+        <p style="font-size:0.8rem;color:var(--text-light);">Fueling your runs</p>
+      </a>
+      <a href="blog.html?category=gear" class="cat-card reveal reveal-delay-3">
+        <div style="font-size:2.5rem;margin-bottom:12px;">👟</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Gear Reviews</h3>
+        <p style="font-size:0.8rem;color:var(--text-light);">Shoes, tech & gear</p>
+      </a>
+      <a href="blog.html?category=injury" class="cat-card reveal">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🩹</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Injury & Recovery</h3>
+        <p style="font-size:0.8rem;color:var(--text-light);">Prevention & healing</p>
+      </a>
+      <a href="blog.html?category=motivation" class="cat-card reveal reveal-delay-1">
+        <div style="font-size:2.5rem;margin-bottom:12px;">💪</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Motivation</h3>
+        <p style="font-size:0.8rem;color:var(--text-light);">Inspire your best</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CTA
+     ============================================ -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title">READY TO RUN YOUR STORY?</h2>
+    <p class="cta-subtitle">Join thousands of runners sharing their journey — for free, forever.</p>
+    <a href="register.html" class="btn btn-primary btn-lg">Create Your Free Account →</a>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-logo">
+          <div class="logo-icon" style="width:36px;height:36px;font-size:1.2rem;">🏃</div>
+          <span class="logo-text" style="font-size:1.4rem;">RUNNERS<span>BLOG</span></span>
+        </a>
+        <p>A community for runners of all levels — from first 5K to ultramarathon. Share your journey and inspire others.</p>
+        <div class="footer-socials" style="margin-top:20px;">
+          <a href="#" class="social-link" title="Twitter">𝕏</a>
+          <a href="#" class="social-link" title="Instagram">📸</a>
+          <a href="#" class="social-link" title="Strava">🏃</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">EXPLORE</h4>
+        <div class="footer-links">
+          <a href="blog.html" class="footer-link">All Posts</a>
+          <a href="blog.html?category=training" class="footer-link">Training</a>
+          <a href="blog.html?category=race-report" class="footer-link">Race Reports</a>
+          <a href="blog.html?category=nutrition" class="footer-link">Nutrition</a>
+          <a href="blog.html?category=gear" class="footer-link">Gear Reviews</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">COMMUNITY</h4>
+        <div class="footer-links">
+          <a href="register.html" class="footer-link">Join Free</a>
+          <a href="login.html" class="footer-link">Log In</a>
+          <a href="create-post.html" class="footer-link">Write a Post</a>
+          <a href="about.html" class="footer-link">About Us</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">HELP</h4>
+        <div class="footer-links">
+          <a href="#" class="footer-link">FAQ</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="#" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 RunnersBlog. Built with ❤️ for runners everywhere.</span>
+      <span>Final Year Project — CS Department</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.cat-card {
+  flex: 1;
+  min-width: 140px;
+  max-width: 180px;
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  display: block;
+  color: var(--text-dark);
+}
+.cat-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  color: var(--primary);
+}
+</style>
+
+<script src="js/api.js"></script>
+<script>
+// Load stats
+async function loadStats() {
+  const result = await api.get('/posts/stats');
+  if (result.ok) {
+    const s = result.data.data;
+    // Hero stats
+    document.getElementById('statPosts').textContent = formatNum(s.total_posts);
+    document.getElementById('statRunners').textContent = formatNum(s.total_runners);
+    document.getElementById('statViews').textContent = formatNum(s.total_views);
+    // Stats bar
+    document.getElementById('sb1').textContent = s.total_posts;
+    document.getElementById('sb2').textContent = s.total_runners;
+    document.getElementById('sb3').textContent = formatNum(s.total_views);
+    document.getElementById('sb4').textContent = s.total_comments;
+  }
+}
+
+// Load featured posts
+async function loadFeaturedPosts() {
+  const container = document.getElementById('featuredPosts');
+  const result = await api.get('/posts/featured');
+  
+  if (result.ok && result.data.data.length > 0) {
+    container.innerHTML = result.data.data.map(buildPostCard).join('');
+    setTimeout(initScrollReveal, 100);
+  } else {
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><span class="empty-icon">📝</span><p class="empty-text">No posts yet. Be the first to write!</p><a href="register.html" class="btn btn-primary">Get Started</a></div>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadStats();
+  loadFeaturedPosts();
+});
+</script>
+</body>
+</html>

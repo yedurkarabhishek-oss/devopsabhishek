@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Runners Blog</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">🏃</div>
+      <span class="logo-text">RUNNERS<span>BLOG</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="about.html" class="nav-link active">About</a>
+    </div>
+    <div class="navbar-actions">
+      <div id="guestActions" class="d-flex gap-2 align-center">
+        <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Join Free</a>
+      </div>
+      <div id="userActions" class="d-flex gap-2 align-center hidden">
+        <a href="create-post.html" id="writeBtnNav" class="btn btn-primary btn-sm">✏️ Write</a>
+        <div class="nav-user-menu">
+          <div class="nav-avatar" id="navAvatar"><span id="userAvatarText">U</span></div>
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">👤 My Profile</a>
+            <a href="dashboard.html?tab=posts" class="dropdown-item">📝 My Posts</a>
+            <a href="create-post.html" class="dropdown-item">✏️ Write Post</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item danger" id="logoutBtn">🚪 Log Out</div>
+          </div>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button id="mobileNavClose" style="color:white;font-size:1.5rem;position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;">✕</button>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="blog.html" class="mobile-nav-link">Blog</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+</div>
+
+<!-- ABOUT HERO -->
+<div class="about-hero">
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="section-eyebrow">About RunnersBlog</span>
+    <h1 style="font-family:var(--font-display);font-size:clamp(3rem,6vw,5rem);color:white;letter-spacing:0.03em;margin:16px 0;">
+      BUILT FOR<br><span style="color:var(--primary);">RUNNERS</span><br>BY RUNNERS
+    </h1>
+    <p style="color:rgba(255,255,255,0.6);font-size:1.1rem;max-width:560px;line-height:1.7;">
+      RunnersBlog is a community platform where every runner — from first-timers to ultramarathon veterans — can share their journey, inspire others, and find their tribe.
+    </p>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <span class="section-eyebrow">Our Mission</span>
+        <h2 class="section-title">Every Mile Has a Story Worth Telling</h2>
+        <p style="color:var(--text-mid);line-height:1.8;margin-bottom:20px;">
+          Running is one of the most personal pursuits a human can undertake. Every run — whether it's a 5-minute jog or a 100-mile ultra — carries with it a unique story of determination, struggle, and triumph.
+        </p>
+        <p style="color:var(--text-mid);line-height:1.8;margin-bottom:20px;">
+          We built RunnersBlog because we believe those stories deserve to be told. Not just for the person who ran them, but for every runner out there searching for motivation, guidance, or simply the reassurance that they are not alone.
+        </p>
+        <p style="color:var(--text-mid);line-height:1.8;">
+          Our platform is free, welcoming, and built from the ground up to serve the running community — whether you run for medals, for health, or just for the sheer joy of it.
+        </p>
+      </div>
+      <div>
+        <div style="background:var(--dark);border-radius:var(--radius-lg);padding:48px;color:white;">
+          <div style="font-family:var(--font-display);font-size:4rem;color:var(--primary);letter-spacing:0.02em;">42.2</div>
+          <div style="font-size:0.875rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:24px;">The magic number</div>
+          <p style="color:rgba(255,255,255,0.7);line-height:1.7;font-size:0.95rem;">
+            The marathon distance that has challenged and inspired humans for over a century. Like the marathon itself, building a running community takes patience, persistence, and heart.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" style="background:var(--gray-bg);">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-eyebrow">What We Offer</span>
+      <h2 class="section-title">Everything a Runner Needs</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;" id="featuresGrid">
+      <div class="reveal" style="background:white;border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">📝</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">Rich Blog Editor</h3>
+        <p style="color:var(--text-light);font-size:0.875rem;line-height:1.6;">Write beautiful posts with formatting, headings, and more. Track your running stats directly in your posts.</p>
+      </div>
+      <div class="reveal reveal-delay-1" style="background:white;border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">📊</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">Running Stats</h3>
+        <p style="color:var(--text-light);font-size:0.875rem;line-height:1.6;">Log your distance, duration, and pace with each post. Let readers see the numbers behind your run.</p>
+      </div>
+      <div class="reveal reveal-delay-2" style="background:white;border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">🏷️</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">Categories & Tags</h3>
+        <p style="color:var(--text-light);font-size:0.875rem;line-height:1.6;">Organize posts by category — training, race reports, nutrition, gear, and more. Tag to connect related content.</p>
+      </div>
+      <div class="reveal" style="background:white;border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">❤️</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">Likes & Comments</h3>
+        <p style="color:var(--text-light);font-size:0.875rem;line-height:1.6;">Give kudos and leave comments on posts you love. Build connections with other runners in the community.</p>
+      </div>
+      <div class="reveal reveal-delay-1" style="background:white;border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">🔐</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">Secure Authentication</h3>
+        <p style="color:var(--text-light);font-size:0.875rem;line-height:1.6;">JWT-based authentication keeps your account secure. Your data is encrypted and protected.</p>
+      </div>
+      <div class="reveal reveal-delay-2" style="background:white;border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">💾</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">Draft Support</h3>
+        <p style="color:var(--text-light);font-size:0.875rem;line-height:1.6;">Save posts as drafts and publish when ready. Your stories won't be lost — work at your own pace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="section">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-eyebrow">Technical Architecture</span>
+      <h2 class="section-title">Built With Modern Tech</h2>
+      <p class="section-subtitle">RunnersBlog uses a 3-tier architecture for scalability, maintainability, and performance.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px;">
+      <!-- Frontend -->
+      <div style="background:var(--dark);color:white;border-radius:var(--radius-lg);padding:32px;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🎨</div>
+        <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.05em;color:var(--primary);margin-bottom:12px;">FRONTEND</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;text-align:left;margin-top:16px;">
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• HTML5 + CSS3 + Vanilla JS</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• Responsive mobile-first design</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• Rich text editor (contenteditable)</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• JWT auth stored in localStorage</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• Fetch API for REST calls</span>
+        </div>
+      </div>
+
+      <!-- Backend -->
+      <div style="background:var(--primary);color:white;border-radius:var(--radius-lg);padding:32px;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:12px;">⚙️</div>
+        <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.05em;margin-bottom:12px;">BACKEND</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;text-align:left;margin-top:16px;">
+          <span style="color:rgba(255,255,255,0.9);font-size:0.875rem;">• Node.js + Express.js</span>
+          <span style="color:rgba(255,255,255,0.9);font-size:0.875rem;">• RESTful API architecture</span>
+          <span style="color:rgba(255,255,255,0.9);font-size:0.875rem;">• JWT authentication (bcrypt)</span>
+          <span style="color:rgba(255,255,255,0.9);font-size:0.875rem;">• MVC pattern (routes/controllers)</span>
+          <span style="color:rgba(255,255,255,0.9);font-size:0.875rem;">• CORS enabled for security</span>
+        </div>
+      </div>
+
+      <!-- Database -->
+      <div style="background:var(--dark);color:white;border-radius:var(--radius-lg);padding:32px;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🗄️</div>
+        <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.05em;color:var(--accent);margin-bottom:12px;">DATABASE</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;text-align:left;margin-top:16px;">
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• PostgreSQL (pg driver)</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• 4 relational tables</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• Foreign key constraints</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• Optimized indexes</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem;">• Connection pooling</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div style="margin-top:48px;background:var(--gray-bg);border-radius:var(--radius-lg);padding:40px;text-align:center;">
+      <h4 style="font-weight:700;margin-bottom:28px;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.08em;font-size:0.85rem;">Data Flow</h4>
+      <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;gap:8px;">
+        <div style="background:white;border:2px solid var(--border);border-radius:var(--radius);padding:16px 24px;font-weight:700;font-size:0.9rem;">Browser</div>
+        <div style="color:var(--primary);font-size:1.5rem;font-weight:700;">⟺</div>
+        <div style="background:var(--primary);color:white;border-radius:var(--radius);padding:16px 24px;font-weight:700;font-size:0.9rem;">HTTP/REST API</div>
+        <div style="color:var(--primary);font-size:1.5rem;font-weight:700;">⟺</div>
+        <div style="background:white;border:2px solid var(--border);border-radius:var(--radius);padding:16px 24px;font-weight:700;font-size:0.9rem;">Express Server</div>
+        <div style="color:var(--primary);font-size:1.5rem;font-weight:700;">⟺</div>
+        <div style="background:var(--dark);color:white;border-radius:var(--radius);padding:16px 24px;font-weight:700;font-size:0.9rem;">PostgreSQL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title">JOIN THE COMMUNITY TODAY</h2>
+    <p class="cta-subtitle">Free forever. No ads. Just runners helping runners.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="register.html" class="btn btn-primary btn-lg">Create Free Account</a>
+      <a href="blog.html" class="btn btn-ghost btn-lg" style="color:white;border-color:rgba(255,255,255,0.3);">Browse Posts</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-logo">
+          <div class="logo-icon" style="width:36px;height:36px;font-size:1.2rem;">🏃</div>
+          <span class="logo-text" style="font-size:1.4rem;">RUNNERS<span>BLOG</span></span>
+        </a>
+        <p>A community for runners of all levels.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">EXPLORE</h4>
+        <div class="footer-links">
+          <a href="blog.html" class="footer-link">All Posts</a>
+          <a href="blog.html?category=training" class="footer-link">Training</a>
+          <a href="blog.html?category=race-report" class="footer-link">Race Reports</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">JOIN US</h4>
+        <div class="footer-links">
+          <a href="register.html" class="footer-link">Register</a>
+          <a href="login.html" class="footer-link">Login</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">SITE</h4>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="about.html" class="footer-link">About</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 RunnersBlog. Final Year Project — CS Department.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+</body>
+</html>

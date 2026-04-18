@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Post... — Runners Blog</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">🏃</div>
+      <span class="logo-text">RUNNERS<span>BLOG</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+    <div class="navbar-actions">
+      <div id="guestActions" class="d-flex gap-2 align-center">
+        <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Join Free</a>
+      </div>
+      <div id="userActions" class="d-flex gap-2 align-center hidden">
+        <a href="create-post.html" id="writeBtnNav" class="btn btn-primary btn-sm">✏️ Write</a>
+        <div class="nav-user-menu">
+          <div class="nav-avatar" id="navAvatar"><span id="userAvatarText">U</span></div>
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">👤 My Profile</a>
+            <a href="dashboard.html?tab=posts" class="dropdown-item">📝 My Posts</a>
+            <a href="create-post.html" class="dropdown-item">✏️ Write Post</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item danger" id="logoutBtn">🚪 Log Out</div>
+          </div>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button id="mobileNavClose" style="color:white;font-size:1.5rem;position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;">✕</button>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="blog.html" class="mobile-nav-link">Blog</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+</div>
+
+<!-- POST HERO -->
+<div id="postHero" class="post-hero">
+  <div class="post-hero-content" style="text-align:center;">
+    <div class="loader"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- POST LAYOUT -->
+<div id="postLayout" class="post-layout hidden">
+
+  <!-- Running stats (if available) -->
+  <div id="runStatsBox"></div>
+
+  <!-- Post content -->
+  <div id="postContent" class="post-content"></div>
+
+  <!-- Tags -->
+  <div id="postTags" class="post-tags"></div>
+
+  <!-- Action bar -->
+  <div style="display:flex;align-items:center;gap:16px;margin:32px 0;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <button class="like-button" id="likeBtn" onclick="toggleLike()">
+      <span id="likeIcon">🤍</span>
+      <span id="likeCount">0</span> Likes
+    </button>
+    <a href="#comments" class="btn btn-ghost">💬 <span id="commentCount">0</span> Comments</a>
+    <button class="btn btn-ghost" onclick="copyLink()">🔗 Share</button>
+  </div>
+
+  <!-- Author card -->
+  <div id="authorCard" style="background:var(--gray-bg);border-radius:var(--radius-lg);padding:28px;margin:32px 0;display:flex;gap:20px;align-items:flex-start;">
+  </div>
+
+  <!-- Comments -->
+  <div class="comments-section" id="comments">
+    <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:24px;">Comments <span id="commentsCount" style="color:var(--text-light);font-weight:400;font-size:1rem;"></span></h3>
+
+    <!-- Comment form -->
+    <div id="commentFormSection">
+      <div id="commentLoginPrompt" class="hidden" style="background:var(--gray-bg);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:24px;">
+        <p style="margin-bottom:12px;color:var(--text-mid);">Please log in to leave a comment</p>
+        <a href="login.html" class="btn btn-primary btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-ghost btn-sm" style="margin-left:8px;">Register</a>
+      </div>
+      <div id="commentForm" class="comment-form hidden">
+        <textarea class="comment-textarea" id="commentText" placeholder="Share your thoughts on this post..."></textarea>
+        <div style="display:flex;justify-content:flex-end;margin-top:12px;">
+          <button class="btn btn-primary" onclick="submitComment()">Post Comment</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments list -->
+    <div id="commentsList"></div>
+  </div>
+
+  <!-- Related posts -->
+  <div id="relatedSection" style="margin-top:64px;padding-top:48px;border-top:2px solid var(--border);">
+    <h3 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.03em;margin-bottom:28px;">MORE LIKE THIS</h3>
+    <div id="relatedPosts" class="posts-grid cols-3"></div>
+  </div>
+</div>
+
+<!-- Error state -->
+<div id="errorState" class="hidden" style="padding:120px 24px;text-align:center;">
+  <span style="font-size:3rem;">😕</span>
+  <h2 style="margin:16px 0 8px;">Post not found</h2>
+  <p style="color:var(--text-light);margin-bottom:24px;">This post may have been deleted or the URL is incorrect.</p>
+  <a href="blog.html" class="btn btn-primary">Browse All Posts</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;">
+      <span>© 2025 RunnersBlog. All rights reserved.</span>
+      <a href="blog.html" style="color:rgba(255,255,255,0.5);font-size:0.875rem;">← Back to Blog</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+let postId = null;
+let postLiked = false;
+
+const slug = new URLSearchParams(window.location.search).get('slug');
+
+async function loadPost() {
+  if (!slug) { showError(); return; }
+
+  const result = await api.get(`/posts/${slug}`, false);
+
+  if (!result.ok) { showError(); return; }
+
+  const post = result.data.data;
+  postId = post.id;
+  postLiked = post.user_liked;
+
+  // Update page title
+  document.title = `${post.title} — Runners Blog`;
+
+  // Build hero
+  const cat = CATEGORIES[post.category] || CATEGORIES['general'];
+  document.getElementById('postHero').innerHTML = `
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(232,50,10,0.1) 0%,transparent 70%);"></div>
+    <div class="post-hero-content" style="position:relative;z-index:1;">
+      <span class="post-card-category ${cat.class}" style="position:static;display:inline-block;margin-bottom:16px;">${cat.label}</span>
+      <h1 class="post-hero-title">${escapeHtml(post.title)}</h1>
+      <div class="post-hero-meta">
+        <div class="post-author-info">
+          <div class="post-author-avatar">${(post.full_name||post.username||'U')[0].toUpperCase()}</div>
+          <div>
+            <div class="post-author-name">${escapeHtml(post.full_name || post.username)}</div>
+            <div class="post-date">${formatDate(post.created_at)}</div>
+          </div>
+        </div>
+      </div>
+      <div class="post-hero-stats">
+        <span class="post-hero-stat">👁 ${formatNum(post.views)} views</span>
+        <span class="post-hero-stat">❤️ ${formatNum(post.like_count)} likes</span>
+        <span class="post-hero-stat">💬 ${formatNum(post.comment_count)} comments</span>
+        ${post.distance_km ? `<span class="post-hero-stat">📏 ${post.distance_km}km</span>` : ''}
+        ${post.duration_minutes ? `<span class="post-hero-stat">⏱ ${formatDuration(post.duration_minutes)}</span>` : ''}
+      </div>
+    </div>
+  `;
+
+  // Running stats box
+  if (post.distance_km || post.duration_minutes) {
+    document.getElementById('runStatsBox').innerHTML = `
+      <div class="run-stats-box">
+        ${post.distance_km ? `<div class="run-stat"><span class="run-stat-num">${post.distance_km}km</span><span class="run-stat-label">Distance</span></div>` : ''}
+        ${post.duration_minutes ? `<div class="run-stat"><span class="run-stat-num">${formatDuration(post.duration_minutes)}</span><span class="run-stat-label">Duration</span></div>` : ''}
+        ${post.distance_km && post.duration_minutes ? `<div class="run-stat"><span class="run-stat-num">${(post.duration_minutes/post.distance_km).toFixed(1)}min/km</span><span class="run-stat-label">Avg Pace</span></div>` : ''}
+      </div>`;
+  }
+
+  // Post content
+  document.getElementById('postContent').innerHTML = post.content;
+
+  // Tags
+  if (post.tags && post.tags.length) {
+    document.getElementById('postTags').innerHTML = post.tags.map(t =>
+      `<span class="tag">#${escapeHtml(t)}</span>`
+    ).join('');
+  }
+
+  // Like button
+  updateLikeBtn(post.like_count, post.user_liked);
+  document.getElementById('commentCount').textContent = post.comment_count;
+
+  // Author card
+  document.getElementById('authorCard').innerHTML = `
+    <div class="post-author-avatar" style="width:56px;height:56px;font-size:1.2rem;flex-shrink:0;">${(post.full_name||post.username||'U')[0].toUpperCase()}</div>
+    <div>
+      <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">About ${escapeHtml(post.full_name || post.username)}</div>
+      <div style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">@${escapeHtml(post.username)}</div>
+      <p style="font-size:0.9rem;color:var(--text-mid);">${escapeHtml(post.author_bio || 'A passionate runner sharing their journey.')}</p>
+    </div>`;
+
+  // Comments
+  renderComments(post.comments);
+
+  // Comment form
+  if (auth.currentUser) {
+    document.getElementById('commentForm').classList.remove('hidden');
+  } else {
+    document.getElementById('commentLoginPrompt').classList.remove('hidden');
+  }
+
+  // Related posts
+  if (post.related_posts && post.related_posts.length > 0) {
+    document.getElementById('relatedPosts').innerHTML = post.related_posts.map(p => `
+      <article class="post-card" onclick="window.location.href='post.html?slug=${p.slug}'">
+        <div class="post-card-image" style="background:linear-gradient(135deg,${getCategoryGradient(p.category)});display:flex;align-items:center;justify-content:center;font-size:3rem;">${getCategoryEmoji(p.category)}</div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>${formatDate(p.created_at)}</span></div>
+          <h3 class="post-card-title">${escapeHtml(p.title)}</h3>
+        </div>
+      </article>`).join('');
+  } else {
+    document.getElementById('relatedSection').classList.add('hidden');
+  }
+
+  // Show content
+  document.getElementById('postLayout').classList.remove('hidden');
+}
+
+function renderComments(comments) {
+  document.getElementById('commentsCount').textContent = `(${comments.length})`;
+  if (comments.length === 0) {
+    document.getElementById('commentsList').innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--text-light);">
+        <span style="font-size:2rem;display:block;margin-bottom:8px;">💬</span>
+        No comments yet. Be the first to share your thoughts!
+      </div>`;
+    return;
+  }
+  document.getElementById('commentsList').innerHTML = comments.map(c => `
+    <div class="comment-card" id="comment-${c.id}">
+      <div class="comment-avatar">${(c.full_name||c.username||'U')[0].toUpperCase()}</div>
+      <div class="comment-body">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="comment-author">${escapeHtml(c.full_name||c.username)}</span>
+          <span class="comment-date">${formatDate(c.created_at)}</span>
+          ${auth.currentUser && auth.currentUser.id === c.user_id ?
+            `<button onclick="deleteComment(${c.id})" style="margin-left:auto;font-size:0.8rem;color:var(--text-light);background:none;border:none;cursor:pointer;">Delete</button>` : ''}
+        </div>
+        <p class="comment-text">${escapeHtml(c.content)}</p>
+      </div>
+    </div>`).join('');
+}
+
+function updateLikeBtn(count, liked) {
+  postLiked = liked;
+  document.getElementById('likeIcon').textContent = liked ? '❤️' : '🤍';
+  document.getElementById('likeCount').textContent = count;
+  document.getElementById('likeBtn').classList.toggle('liked', liked);
+}
+
+async function toggleLike() {
+  if (!auth.currentUser) {
+    showToast('Please log in to like posts', 'info');
+    return;
+  }
+  const result = await api.post('/likes/toggle', { post_id: postId }, true);
+  if (result.ok) {
+    updateLikeBtn(result.data.data.like_count, result.data.data.liked);
+  }
+}
+
+async function submitComment() {
+  const text = document.getElementById('commentText').value.trim();
+  if (!text) { showToast('Please enter a comment', 'error'); return; }
+
+  const result = await api.post('/comments', { post_id: postId, content: text }, true);
+  if (result.ok) {
+    document.getElementById('commentText').value = '';
+    showToast('Comment posted!', 'success');
+    // Add comment to UI
+    const c = result.data.data;
+    const existing = document.getElementById('commentsList');
+    const newComment = document.createElement('div');
+    newComment.className = 'comment-card';
+    newComment.id = `comment-${c.id}`;
+    newComment.innerHTML = `
+      <div class="comment-avatar">${(c.full_name||c.username||'U')[0].toUpperCase()}</div>
+      <div class="comment-body">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="comment-author">${escapeHtml(c.full_name||c.username)}</span>
+          <span class="comment-date">Just now</span>
+          <button onclick="deleteComment(${c.id})" style="margin-left:auto;font-size:0.8rem;color:var(--text-light);background:none;border:none;cursor:pointer;">Delete</button>
+        </div>
+        <p class="comment-text">${escapeHtml(c.content)}</p>
+      </div>`;
+    if (existing.querySelector('div[style]')) existing.innerHTML = '';
+    existing.appendChild(newComment);
+    // Update count
+    const countEl = document.getElementById('commentsCount');
+    const current = parseInt(countEl.textContent.replace(/\D/g,'')) || 0;
+    countEl.textContent = `(${current + 1})`;
+  } else {
+    showToast(result.data.message || 'Failed to post comment', 'error');
+  }
+}
+
+async function deleteComment(id) {
+  if (!confirm('Delete this comment?')) return;
+  const result = await api.delete(`/comments/${id}`, true);
+  if (result.ok) {
+    document.getElementById(`comment-${id}`).remove();
+    showToast('Comment deleted', 'info');
+  }
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    showToast('Link copied to clipboard!', 'success');
+  });
+}
+
+function showError() {
+  document.getElementById('postHero').classList.add('hidden');
+  document.getElementById('errorState').classList.remove('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadPost();
+});
+</script>
+</body>
+</html>

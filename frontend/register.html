@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Free — Runners Blog</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">🏃</div>
+      <span class="logo-text">RUNNERS<span>BLOG</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+    <div class="navbar-actions">
+      <div id="guestActions" class="d-flex gap-2 align-center">
+        <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Join Free</a>
+      </div>
+      <div id="userActions" class="d-flex gap-2 align-center hidden">
+        <a href="create-post.html" id="writeBtnNav" class="btn btn-primary btn-sm">✏️ Write</a>
+        <div class="nav-user-menu">
+          <div class="nav-avatar" id="navAvatar"><span id="userAvatarText">U</span></div>
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">👤 My Profile</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item danger" id="logoutBtn">🚪 Log Out</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- AUTH PAGE -->
+<div class="auth-page" style="padding:80px 0;">
+  <div class="auth-container" style="max-width:480px;">
+    <div class="auth-card">
+      <!-- Logo -->
+      <div class="auth-logo">
+        <div style="width:56px;height:56px;background:var(--primary);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;">🏃</div>
+        <h1 class="auth-title display-font">Join the Community</h1>
+        <p class="auth-subtitle">Create your free account and start sharing your running journey</p>
+      </div>
+
+      <!-- Benefits -->
+      <div style="background:var(--gray-bg);border-radius:var(--radius);padding:16px;margin-bottom:24px;">
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:0.85rem;color:var(--text-mid);">
+          <span>✅ Write unlimited blog posts</span>
+          <span>✅ Like & comment on posts</span>
+          <span>✅ Track your running stats</span>
+          <span>✅ Connect with other runners</span>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div id="errorMsg" class="hidden" style="background:#fee2e2;border:1px solid #fca5a5;border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;font-size:0.875rem;color:#991b1b;"></div>
+
+      <!-- Form -->
+      <form id="registerForm" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="form-group">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="John Smith" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="username">Username <span style="color:var(--primary);">*</span></label>
+            <input type="text" class="form-control" id="username" placeholder="john_runs" required autocomplete="username">
+            <div class="form-error hidden" id="usernameError"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address <span style="color:var(--primary);">*</span></label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com" required autocomplete="email">
+          <div class="form-error hidden" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password <span style="color:var(--primary);">*</span></label>
+          <div style="position:relative;">
+            <input type="password" class="form-control" id="password" placeholder="At least 6 characters" required autocomplete="new-password">
+            <button type="button" id="togglePwd" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text-light);">👁</button>
+          </div>
+          <!-- Password strength bar -->
+          <div style="margin-top:8px;">
+            <div style="height:4px;background:var(--border);border-radius:4px;overflow:hidden;">
+              <div id="strengthBar" style="height:100%;width:0%;transition:all 0.3s;background:var(--primary);border-radius:4px;"></div>
+            </div>
+            <span id="strengthText" style="font-size:0.75rem;color:var(--text-light);"></span>
+          </div>
+          <div class="form-error hidden" id="passwordError"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirm Password <span style="color:var(--primary);">*</span></label>
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Repeat your password" required autocomplete="new-password">
+          <div class="form-error hidden" id="confirmError"></div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px;">
+          <input type="checkbox" id="agree" required style="width:16px;height:16px;margin-top:3px;accent-color:var(--primary);">
+          <label for="agree" style="font-size:0.8rem;color:var(--text-mid);line-height:1.5;">
+            I agree to the <a href="#" style="color:var(--primary);">Terms of Service</a> and <a href="#" style="color:var(--primary);">Privacy Policy</a>
+          </label>
+        </div>
+        <div class="form-error hidden" id="agreeError"></div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+          Create Free Account →
+        </button>
+      </form>
+
+      <p style="text-align:center;margin-top:24px;font-size:0.875rem;color:var(--text-light);">
+        Already have an account? <a href="login.html" style="color:var(--primary);font-weight:600;">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+// Redirect if already logged in
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await auth.init();
+  if (user) window.location.href = 'dashboard.html';
+});
+
+// Toggle password
+document.getElementById('togglePwd').addEventListener('click', () => {
+  const pwd = document.getElementById('password');
+  const btn = document.getElementById('togglePwd');
+  pwd.type = pwd.type === 'password' ? 'text' : 'password';
+  btn.textContent = pwd.type === 'password' ? '👁' : '🙈';
+});
+
+// Password strength
+document.getElementById('password').addEventListener('input', (e) => {
+  const val = e.target.value;
+  const bar = document.getElementById('strengthBar');
+  const text = document.getElementById('strengthText');
+  let strength = 0;
+  if (val.length >= 6) strength++;
+  if (val.length >= 10) strength++;
+  if (/[A-Z]/.test(val)) strength++;
+  if (/[0-9]/.test(val)) strength++;
+  if (/[^a-zA-Z0-9]/.test(val)) strength++;
+
+  const labels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
+  const colors = ['', '#ef4444', '#f59e0b', '#3b82f6', '#10b981', '#065f46'];
+  bar.style.width = (strength * 20) + '%';
+  bar.style.background = colors[strength] || '';
+  text.textContent = labels[strength] || '';
+  text.style.color = colors[strength] || '';
+});
+
+// Form submit
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  const agree = document.getElementById('agree').checked;
+
+  let valid = true;
+
+  const setError = (id, msg) => {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.toggle('hidden', !msg);
+    if (msg) valid = false;
+  };
+
+  setError('usernameError', !username ? 'Username is required' : username.length < 3 ? 'Username must be at least 3 characters' : '');
+  setError('emailError', !email ? 'Email is required' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Invalid email format' : '');
+  setError('passwordError', !password ? 'Password is required' : password.length < 6 ? 'Password must be at least 6 characters' : '');
+  setError('confirmError', password !== confirmPassword ? 'Passwords do not match' : '');
+  setError('agreeError', !agree ? 'You must agree to the terms' : '');
+
+  if (!valid) return;
+
+  const submitBtn = document.getElementById('submitBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Creating account...';
+  errorMsg.classList.add('hidden');
+
+  const result = await auth.register(username, email, password, fullName);
+
+  if (result.ok) {
+    showToast('Account created! Welcome to RunnersBlog 🏃', 'success');
+    setTimeout(() => window.location.href = 'dashboard.html', 800);
+  } else {
+    errorMsg.textContent = result.data.message || 'Registration failed. Please try again.';
+    errorMsg.classList.remove('hidden');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Create Free Account →';
+  }
+});
+</script>
+</body>
+</html>
